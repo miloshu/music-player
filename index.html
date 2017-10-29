@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			
+			/*overflow: hidden;*/
+		}
+		#phone{
+			width: 320px;
+			height: 600px;
+			background-color: #000;
+			background: url("images/3.jpg") no-repeat;
+			background-size: 100% 100%;
+			margin: 50px auto;
+		}
+		.top{
+			width: 320px;
+			height: 20px;
+			background: url(images/1.png) no-repeat;
+		}
+		.title{
+			width: 320px;
+			height: 30px;
+			background: url(images/2.png);
+			text-align: center;
+			color: #ccc;
+			font-size: 20px;
+			font-weight: bold;
+		}
+		.singer{
+			width: 320px;
+			height: 20px;
+			text-align: center;
+			color: #ccc;
+			line-height: 20px;
+			font-size: 14px;
+		}
+		.play{
+			width: 190px;
+			height: 190px;
+			background: url(images/3.png);
+			margin: auto;
+			border-radius: 50%;
+			
+		}
+		.lrc{
+			width: 300px;
+			height: 285px;
+			/*border: 1px solid red;*/
+			margin: 20px auto;
+			text-align: center;
+			color: #ccc;
+			line-height: 20px;
+			font-size: 14px;
+			overflow: hidden;
+		}
+		#content{
+			position: relative;
+			top: 0;
+		}
+		.rotate{
+			animation: rot 10s linear infinite;
+		}
+		@keyframes rot{
+			from {
+				transform: rotate(0deg);
+			}	
+			to{
+				transform: rotate(360deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="phone">
+		<div class="top"></div>
+		<div class="title">刚好遇见你</div>
+		<div class="singer">李玉刚</div>
+		<div class="play"></div>
+		<div class="lrc">
+			<div id="content"></div>
+		</div>
+	</div>
+	<audio src="music/李玉刚-刚好遇见你.mp3" id = myMusic ></audio>
+	<textarea name="" id="text" style="display: none;">
+		[ti:]刚好遇见你 - 李玉刚
+		[00:02.74]作词：高进
+		[00:03.70]作曲：高进
+		[00:04.75]编曲：关天天
+		[00:12.56]我们哭了
+		[00:15.27]我们笑着
+		[00:18.60]我们抬头望天空
+		[00:21.43]星星还亮着几颗
+		[00:24.63]我们唱着
+		[00:27.56]时间的歌
+		[00:30.62]才懂得相互拥抱
+		[00:34.00]到底是为了什么
+		[00:36.94]因为我刚好遇见你
+		[00:40.32]留下足迹才美丽
+		[00:43.69]风吹花落泪如雨
+		[00:46.48]因为不想分离
+		[00:49.57]因为刚好遇见你
+		[00:52.59]留下十年的期许
+		[00:55.69]如果再相遇
+		[00:59.15]我想我会记得你
+		[01:14.28]我们哭了
+		[01:16.88]我们笑着
+		[01:20.29]我们抬头望天空
+		[01:22.96]星星还亮着几颗
+		[01:26.11]我们唱着
+		[01:29.11]时间的歌
+		[01:32.56]才懂得相互拥抱
+		[01:35.36]到底是为了什么
+		[01:38.47]因为我刚好遇见你
+		[01:41.84]留下足迹才美丽
+		[01:44.83]风吹花落泪如雨
+		[01:47.97]因为不想分离
+		[01:51.02]因为刚好遇见你
+		[01:54.09]留下十年的期许
+		[01:57.23]如果再相遇
+		[02:00.69]我想我会记得你
+		[02:03.69]因为刚好遇见你
+		[02:06.43]留下足迹才美丽
+		[02:09.57]风吹花落泪如雨
+		[02:12.64]因为不想分离
+		[02:15.76]因为刚好遇见你
+		[02:18.78]留下十年的期许
+		[02:21.83]如果再相遇
+		[02:24.98]我想我会记得你
+		[02:31.07]因为我刚好遇见你
+		[02:34.13]留下足迹才美丽
+		[02:37.25]风吹花落泪如雨
+		[02:40.37]因为不想分离
+		[02:43.43]因为刚好遇见你
+		[02:46.48]留下十年的期许
+		[02:49.58]如果再相遇
+		[02:52.67]我想我会记得你
+	</textarea>
+</body>
+<script>
+	var lrc = document.querySelector(".lrc");
+	var oPlay = document.querySelector(".play");
+	var myMusic = document.querySelector("#myMusic");
+	var con = document.querySelector("#content");
+	var onOff = true;
+	oPlay.onclick = function (){
+		if(onOff){
+			myMusic.play();
+			// onOff = false;
+			this.className ="play rotate";
+		}else{
+			myMusic.pause();
+			this.className ="play";
+			// onOff = true;
+		}
+		onOff = !onOff; //切换onOff值
+	}
+	var temp = ""; //存储歌词
+	var lrc = text.value;
+	// console.log(lrc);
+	var lrcs = lrc.split("[");
+	// 切割歌词
+	for(var i=0; i<lrcs.length; i++){
+		var arr = lrcs[i].split("]");
+		// console.log(arr[1]);
+		var time = arr[0].split(".");
+		var times = time[0].split(":");
+		var sec = times[0]*60+times[1]*1;
+		if(arr[1]){
+			temp += "<p id = "+sec+">"+arr[1]+"</p>";
+		}
+	}
+	// 把拼接好的歌词内容添加到歌词盒子中
+	con.innerHTML = temp;
+	// 歌词同步
+	var num = 0;
+	var aP = document.getElementsByTagName('p');
+	myMusic.addEventListener("timeupdate",function(){
+		// console.log(parseInt(this.currentTime));
+		var curTime = parseInt(this.currentTime);
+		if(document.getElementById(curTime)){
+			for(var i =0; i<aP.length; i++){
+				aP[i].style.color = "#ccc";
+				aP[i].style.fontSize ="14px";
+			}
+			document.getElementById(curTime).style.color = "red";
+			document.getElementById(curTime).style.fontSize = "18px";
+			if(aP[7+num].id == curTime){
+				con.style.top = -num*20 + "px";
+				num++;
+			}
+		}
+	})
+</script>
+</html>
